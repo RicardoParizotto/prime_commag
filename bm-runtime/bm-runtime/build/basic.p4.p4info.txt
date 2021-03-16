@@ -1,0 +1,615 @@
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 33606529
+    name: "MyIngress.flowstalker_instance.set_heavy_hitter_count_table"
+    alias: "set_heavy_hitter_count_table"
+  }
+  action_refs {
+    id: 16792388
+  }
+  size: 1
+}
+tables {
+  preamble {
+    id: 33577619
+    name: "MyIngress.flowstalker_instance.copy_to_cpu"
+    alias: "copy_to_cpu"
+  }
+  action_refs {
+    id: 16803412
+  }
+  size: 1
+}
+tables {
+  preamble {
+    id: 33588874
+    name: "MyIngress.flowstalker_instance.monitor"
+    alias: "monitor"
+  }
+  action_refs {
+    id: 16815970
+  }
+  size: 1
+}
+tables {
+  preamble {
+    id: 33605376
+    name: "MyIngress.int_instance.ipv4_lpm"
+    alias: "ipv4_lpm"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 16807867
+  }
+  action_refs {
+    id: 16808033
+  }
+  action_refs {
+    id: 16800567
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33591814
+    name: "MyIngress.leader_instance.leader_tbl"
+    alias: "leader_tbl"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.paxos.msgtype"
+    bitwidth: 16
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16825721
+  }
+  action_refs {
+    id: 16824007
+  }
+  action_refs {
+    id: 16831568
+  }
+  size: 4
+}
+tables {
+  preamble {
+    id: 33560969
+    name: "MyIngress.leader_instance.transport_tbl"
+    alias: "transport_tbl"
+  }
+  match_fields {
+    id: 1
+    name: "meta.paxos_metadata.set_drop"
+    bitwidth: 1
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16831568
+  }
+  action_refs {
+    id: 16781875
+  }
+  size: 2
+}
+tables {
+  preamble {
+    id: 33589632
+    name: "MyIngress.shadow"
+    alias: "shadow"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 16817484
+  }
+  action_refs {
+    id: 16805608
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33578241
+    name: "MyIngress.steering"
+    alias: "steering"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  match_fields {
+    id: 2
+    name: "meta.state_tag"
+    bitwidth: 32
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16801127
+  }
+  action_refs {
+    id: 16805608
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33567681
+    name: "MyEgress.int_instance.swtrace"
+    alias: "swtrace"
+  }
+  action_refs {
+    id: 16791271
+  }
+  action_refs {
+    id: 16800567
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33558368
+    name: "MyEgress.leader_instance.place_holder_table"
+    alias: "place_holder_table"
+  }
+  action_refs {
+    id: 16800567
+  }
+  size: 2
+}
+actions {
+  preamble {
+    id: 16800567
+    name: "NoAction"
+    alias: "NoAction"
+  }
+}
+actions {
+  preamble {
+    id: 16803412
+    name: "MyIngress.flowstalker_instance.do_copy_to_cpu"
+    alias: "do_copy_to_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 16815970
+    name: "MyIngress.flowstalker_instance.watch_ts"
+    alias: "watch_ts"
+  }
+}
+actions {
+  preamble {
+    id: 16792388
+    name: "MyIngress.flowstalker_instance.set_heavy_hitter_count"
+    alias: "set_heavy_hitter_count"
+  }
+}
+actions {
+  preamble {
+    id: 16808033
+    name: "MyIngress.int_instance.drop"
+    alias: "int_instance.drop"
+  }
+}
+actions {
+  preamble {
+    id: 16807867
+    name: "MyIngress.int_instance.ipv4_forward"
+    alias: "ipv4_forward"
+  }
+  params {
+    id: 1
+    name: "dstAddr"
+    bitwidth: 48
+  }
+  params {
+    id: 2
+    name: "port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 16831568
+    name: "MyIngress.leader_instance._drop"
+    alias: "_drop"
+  }
+}
+actions {
+  preamble {
+    id: 16825721
+    name: "MyIngress.leader_instance.increase_instance"
+    alias: "increase_instance"
+  }
+}
+actions {
+  preamble {
+    id: 16824007
+    name: "MyIngress.leader_instance.reset_instance"
+    alias: "reset_instance"
+  }
+}
+actions {
+  preamble {
+    id: 16781875
+    name: "MyIngress.leader_instance.forward"
+    alias: "forward"
+  }
+  params {
+    id: 1
+    name: "port"
+    bitwidth: 9
+  }
+  params {
+    id: 2
+    name: "acceptorPort"
+    bitwidth: 16
+  }
+}
+actions {
+  preamble {
+    id: 16805608
+    name: "MyIngress.drop"
+    alias: "MyIngress.drop"
+  }
+}
+actions {
+  preamble {
+    id: 16817484
+    name: "MyIngress.commited"
+    alias: "commited"
+  }
+  params {
+    id: 1
+    name: "new_tag"
+    bitwidth: 32
+  }
+}
+actions {
+  preamble {
+    id: 16801127
+    name: "MyIngress.catalogue"
+    alias: "catalogue"
+  }
+  params {
+    id: 1
+    name: "nf1"
+    bitwidth: 8
+  }
+  params {
+    id: 2
+    name: "nf2"
+    bitwidth: 8
+  }
+  params {
+    id: 3
+    name: "nf3"
+    bitwidth: 8
+  }
+  params {
+    id: 4
+    name: "port"
+    bitwidth: 9
+  }
+  params {
+    id: 5
+    name: "dstAddr"
+    bitwidth: 48
+  }
+}
+actions {
+  preamble {
+    id: 16791271
+    name: "MyEgress.int_instance.add_swtrace"
+    alias: "add_swtrace"
+  }
+  params {
+    id: 1
+    name: "swid"
+    bitwidth: 32
+  }
+}
+counters {
+  preamble {
+    id: 302051107
+    name: "MyIngress.programProcessingCounter"
+    alias: "programProcessingCounter"
+  }
+  spec {
+    unit: BOTH
+  }
+  size: 4
+}
+counters {
+  preamble {
+    id: 302015518
+    name: "MyIngress.dropped_packets_count"
+    alias: "dropped_packets_count"
+  }
+  spec {
+    unit: BOTH
+  }
+  size: 1
+}
+registers {
+  preamble {
+    id: 369105948
+    name: "timestamps_bank"
+    alias: "timestamps_bank"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 1
+}
+registers {
+  preamble {
+    id: 369123615
+    name: "packet_count"
+    alias: "packet_count"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 1
+}
+registers {
+  preamble {
+    id: 369125469
+    name: "ingress_timestamp"
+    alias: "ingress_timestamp"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 1000
+}
+registers {
+  preamble {
+    id: 369131487
+    name: "egress_timestamp"
+    alias: "egress_timestamp"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 1000
+}
+registers {
+  preamble {
+    id: 369099884
+    name: "state_tag"
+    alias: "state_tag"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 1000
+}
+registers {
+  preamble {
+    id: 369107908
+    name: "MyIngress.flowstalker_instance.heavy_hitter_counter1"
+    alias: "heavy_hitter_counter1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369102424
+    name: "MyIngress.flowstalker_instance.heavy_hitter_counter2"
+    alias: "heavy_hitter_counter2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369139532
+    name: "MyIngress.flowstalker_instance.smalltresh"
+    alias: "smalltresh"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 1
+}
+registers {
+  preamble {
+    id: 369136524
+    name: "MyIngress.flowstalker_instance.tresh"
+    alias: "tresh"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 1
+}
+registers {
+  preamble {
+    id: 369151192
+    name: "MyIngress.flowstalker_instance.ts"
+    alias: "ts"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 1024
+}
+registers {
+  preamble {
+    id: 369127748
+    name: "MyIngress.flowstalker_instance.ts_sender"
+    alias: "ts_sender"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 256
+}
+registers {
+  preamble {
+    id: 369138048
+    name: "MyIngress.flowstalker_instance.ts_recver"
+    alias: "ts_recver"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 256
+}
+registers {
+  preamble {
+    id: 369106072
+    name: "MyIngress.flowstalker_instance.ts_valid"
+    alias: "ts_valid"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 1
+      }
+    }
+  }
+  size: 256
+}
+registers {
+  preamble {
+    id: 369159797
+    name: "MyIngress.flowstalker_instance.Whois"
+    alias: "Whois"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369137663
+    name: "MyIngress.flowstalker_instance.flowMax"
+    alias: "flowMax"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369100468
+    name: "MyIngress.flowstalker_instance.flowMin"
+    alias: "flowMin"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369156476
+    name: "MyIngress.leader_instance.registerInstance"
+    alias: "registerInstance"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 1
+}
+type_info {
+}
